@@ -1,7 +1,6 @@
-package exo6_Banque;
+package fr.banque;
 
 public class Compte {
-	
 	private int numero;
 	private double solde;
 	private static int compteurNumero=1;
@@ -48,7 +47,7 @@ public class Compte {
 	}
 
 
-	private void setSolde(double solde) {
+	protected void setSolde(double solde) {
 		this.solde = solde;
 	}
 
@@ -63,7 +62,4 @@ public class Compte {
 		builder.append("]");
 		return builder.toString();
 	}
-	
-	
-
 }

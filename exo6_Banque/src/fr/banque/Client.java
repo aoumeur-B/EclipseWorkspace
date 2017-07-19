@@ -1,4 +1,4 @@
-package exo6_Banque;
+package fr.banque;
 
 import java.util.Arrays;
 
@@ -16,7 +16,7 @@ public class Client {
 	
 	
 	public Client(){
-		this.setNumero(compteurNumero); 
+		this.setNumero(compteurNumero);
 		compteurNumero++;
 		 this.comptes = new Compte[nbreCompteMax];
 	}

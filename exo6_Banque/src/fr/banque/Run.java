@@ -1,4 +1,4 @@
-package exo6_Banque;
+package fr.banque;
 
 public class Run {
 
