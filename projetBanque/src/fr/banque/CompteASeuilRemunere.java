@@ -1,6 +1,6 @@
 package fr.banque;
 
-public class CompteASeuilRemunere extends CompteASeuil implements ICompteRemunere,ICompteASeuil{
+public class CompteASeuilRemunere extends CompteASeuil implements ICompteRemunere{
 	
 	private static double taux = 0.3 ; // valeur comprise entre 0 et 1
 

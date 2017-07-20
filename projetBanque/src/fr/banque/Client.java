@@ -1,6 +1,7 @@
 package fr.banque;
 
-import java.util.Arrays;
+import java.util.Hashtable;
+import java.util.Map;
 
 public class Client {
 
@@ -10,7 +11,7 @@ public class Client {
 		private int age;
 		private int numero;
 		private static int compteurNumero=1;
-		private Compte[] comptes;
+		private Map<Integer,Compte> listCompte;
 		private final int nbreCompteMax = 5;
 		
 		
@@ -18,46 +19,36 @@ public class Client {
 		public Client(){
 			this.setNumero(compteurNumero);
 			compteurNumero++;
-			 this.comptes = new Compte[nbreCompteMax];
+			 this.listCompte = new Hashtable<Integer,Compte>();
 		}
 		public Client(String nom, String prenom, int age) {
 			this.setNumero(compteurNumero);
 			compteurNumero++;
-			 this.comptes = new Compte[nbreCompteMax];
+			this.listCompte = new Hashtable<Integer,Compte>();
 			this.nom= nom;
 			this.prenom=prenom;
 			this.age=age;
 		}
 
 		
-		public void ajouterCompte(Compte unCompte){
+		public void ajouterCompte(Compte unCompte) throws BanqueException{
 
-			boolean comptePlein = true;
-			for(int i=0; i< this.comptes.length;i++){
-				if(this.comptes[i]==null){
-					this.comptes[i] = unCompte;
-					comptePlein = false;
-					return;
-				}
+			if(this.listCompte.size()<=nbreCompteMax){
+				this.listCompte.put(unCompte.getNumero(), unCompte);
+				return;
 			}
-			if(comptePlein){
-				System.out.println("Le nbre maximum de comptes est atteint pour: "+this.getNom()+" "+this.getPrenom());
-			}
+			throw new BanqueException("Le nbre maximum de comptes est atteint pour: "+this.getNom()+" "+this.getPrenom());
 		}
 		
 		
 		public Compte getCompte(int numeroCompte ){
-			boolean compteTrouver = false;
-			for(int i=0; i< this.comptes.length;i++){
-				if(this.comptes[i].getNumero() == numeroCompte){
-					compteTrouver = false;
-					return this.comptes[i]; 
-				}
-			}
-			if(!compteTrouver){
+			
+			if(this.listCompte.containsKey(numeroCompte)){
+				return this.listCompte.get(numeroCompte); 
+			}else{
 				System.out.println("Monsieur/Madame: "+this.getNom()+" "+this.getPrenom()+ "le compte numéro"+ numeroCompte);
+				return null;
 			}
-			return null;
 		}
 		
 		public Compte[] getComptes() {
@@ -110,7 +101,7 @@ public class Client {
 			builder.append(", numero=");
 			builder.append(numero);
 			builder.append(", soldes=");
-			builder.append(Arrays.toString(comptes));
+			builder.append(listCompte.toString());
 			builder.append("]");
 			return builder.toString();
 	

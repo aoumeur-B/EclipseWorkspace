@@ -16,13 +16,12 @@ public class CompteASeuil extends Compte {
 	}
 	
 	// methode pour vérifier le respect du seuil au retrait d'une somme
-	public void retirer(double uneValeur) {
+	public void retirer(double uneValeur) throws BanqueException {
 	
-		if( (this.getSolde() - uneValeur) >= this.seuil) {
-			this.setSolde(this.getSolde() - uneValeur);
-		}else {
-				System.out.println("impossiple d'effectuer l'operation le seuil min est atteint!!! pour: ");
-				}
+		if( (this.getSolde() - uneValeur) < this.seuil) {
+			throw new BanqueException("impossiple d'effectuer l'operation le seuil min est atteint!!! pour:");
+		}
+		this.setSolde(this.getSolde() - uneValeur);
 	}
 
 	
