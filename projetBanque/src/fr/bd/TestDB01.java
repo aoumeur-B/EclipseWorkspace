@@ -1,4 +1,4 @@
-package fr.banque;
+package fr.bd;
 
 import java.sql.*;
 
@@ -15,22 +15,31 @@ public class TestDB01 {
 		// Mot de passe d'access a la base de donnees.
 		final String dbPwd = "root";
 		
-		
+		Connection connection = null;
+	    Statement request = null;
+	    ResultSet resultat = null;
+	    
 		 try {
 		      Class.forName(dbDriver);
 		    } catch (Throwable e) {
 		      e.printStackTrace();
 		    }
-
 		 
-		 
-		 	Connection connection = null;
-		    Statement request = null;
-		    ResultSet resultat = null;
-
 		    try {
-		      connection = DriverManager.getConnection(dbUrl, dbLogin, dbPwd);
+				connection = DriverManager.getConnection(dbUrl, dbLogin, dbPwd);
+			
+				request = connection.createStatement();
 
-		
+				resultat = request.executeQuery("SELECT * from utilisateur");
+		    
+				while (resultat.next()) {
+					String nom = resultat.getString("nom");
+					String prenom = resultat.getString("prenom");
+					System.out.println("nom:"+nom + " " +"prénom: "+ prenom); 
+					}
+		    	}catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 	}
 }
