@@ -1,5 +1,6 @@
 package fr.banque;
 
+
 public class Run {
 
 	public static void main(String[] args) {
@@ -76,6 +77,7 @@ public class Run {
 		
 		System.out.println(cl1);
 		System.out.println(cl1.getCompte(6));
+		
 	}
 
 }

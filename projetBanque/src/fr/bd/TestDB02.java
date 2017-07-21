@@ -1,11 +1,21 @@
 package fr.bd;
 
-import java.sql.*;
 
-public class TestDB01 {
-	
-	
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import fr.banque.*;
 
+
+public class TestDB02 {
+
+	private static Client client;
+	private static List<Client> listClient;
+	
 	public static void main(String[] args) {
 		// Nom du driver pour acceder a la base de donnees.
 					// Lire la documentation associee a sa base de donnees pour le connaitre
@@ -19,6 +29,7 @@ public class TestDB01 {
 					Connection connection = null;
 				    Statement request = null;
 				    ResultSet resultat = null;
+				    listClient= new ArrayList<Client>();
 				    
 					 try {
 					      Class.forName(dbDriver);
@@ -32,11 +43,13 @@ public class TestDB01 {
 							request = connection.createStatement();
 
 							resultat = request.executeQuery("SELECT * from utilisateur");
-					    
+							
 							while (resultat.next()) {
-								String nom = resultat.getString("nom");
-								String prenom = resultat.getString("prenom");
-								System.out.println("nom:"+nom + " " +"prénom: "+ prenom); 
+								client= new Client();
+								client.setNom(resultat.getString("nom"));
+								client.setPrenom(resultat.getString("prenom"));
+								listClient.add(client);
+
 								}
 					    	}catch (SQLException e) {
 								// TODO Auto-generated catch block
@@ -66,5 +79,6 @@ public class TestDB01 {
 							      }
 
 			
+				System.out.println(listClient.toString());
 	}
 }

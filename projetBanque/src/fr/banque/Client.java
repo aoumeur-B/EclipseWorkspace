@@ -9,7 +9,7 @@ public class Client {
 		private String nom;
 		private String prenom;
 		private int age;
-		private int numero;
+		private int numeroClient;
 		private static int compteurNumero=1;
 		private Map<Integer,Compte> listCompte;
 		private final int nbreCompteMax = 5;
@@ -81,11 +81,11 @@ public class Client {
 		}
 
 		public int getNumero() {
-			return numero;
+			return numeroClient;
 		}
 
 		private void setNumero(int numero) {
-			this.numero = numero;
+			this.numeroClient = numero;
 		}
 
 
@@ -98,9 +98,9 @@ public class Client {
 			builder.append(prenom);
 			builder.append(", age=");
 			builder.append(age);
-			builder.append(", numero=");
-			builder.append(numero);
-			builder.append(", soldes=");
+			builder.append(", numeroClient=");
+			builder.append(numeroClient);
+			builder.append(", listCompte=");
 			builder.append(listCompte.toString());
 			builder.append("]");
 			return builder.toString();

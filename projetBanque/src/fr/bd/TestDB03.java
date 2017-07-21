@@ -1,11 +1,24 @@
 package fr.bd;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
-public class TestDB01 {
-	
-	
 
+import fr.banque.Compte;
+import fr.banque.CompteASeuil;
+import fr.banque.CompteRemunere;
+
+public class TestDB03 {
+
+	
+	private static Compte compte;
+	private static List<Compte> listCompte;
+	
 	public static void main(String[] args) {
 		// Nom du driver pour acceder a la base de donnees.
 					// Lire la documentation associee a sa base de donnees pour le connaitre
@@ -19,6 +32,7 @@ public class TestDB01 {
 					Connection connection = null;
 				    Statement request = null;
 				    ResultSet resultat = null;
+				    listCompte= new ArrayList<Compte>();
 				    
 					 try {
 					      Class.forName(dbDriver);
@@ -30,13 +44,24 @@ public class TestDB01 {
 							connection = DriverManager.getConnection(dbUrl, dbLogin, dbPwd);
 						
 							request = connection.createStatement();
+							String idcompte="2";
 
-							resultat = request.executeQuery("SELECT * from utilisateur");
-					    
+							resultat = request.executeQuery("SELECT * from compte where utilisateurId="+idcompte);
+							
 							while (resultat.next()) {
-								String nom = resultat.getString("nom");
-								String prenom = resultat.getString("prenom");
-								System.out.println("nom:"+nom + " " +"prénom: "+ prenom); 
+								
+								String libelle = resultat.getString("libelle");
+								if(libelle.equals("Compte Courant")){
+									compte= new Compte();
+									compte.ajouter(resultat.getDouble("solde"));
+								}else if(libelle.equals("Livret A")){
+									compte= new CompteASeuil();
+									compte.ajouter(resultat.getDouble("solde"));
+								}else if(libelle.equals("Compte Remunéré")){
+									compte= new CompteRemunere();
+									compte.ajouter(resultat.getDouble("solde"));
+								}
+								listCompte.add(compte);
 								}
 					    	}catch (SQLException e) {
 								// TODO Auto-generated catch block
@@ -66,5 +91,6 @@ public class TestDB01 {
 							      }
 
 			
+				System.out.println(listCompte.toString());
 	}
 }
