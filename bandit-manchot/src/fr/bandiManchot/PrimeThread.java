@@ -14,19 +14,24 @@ public class PrimeThread extends Thread {
 	public void run() {
 		for (int lcI = 0; lcI < 5; lcI++) {
 			switch ((int) this.minPrime) {
-			case 10:
-				System.out.println("Thread numero 10 : " + this.minPrime + " / " + lcI);
-				break;
 			case 11:
-				System.out.println("Thread numero 11 : " + this.minPrime + " / " + lcI);
+				System.out.print(this.minPrime+":"+lcI+"|");
 				break;
 			case 12:
-				System.out.println("Thread numero 12 : " + this.minPrime + " / " + lcI);
+				System.out.print(this.minPrime+":"+lcI+"|");
+				break;
+			case 13:
+				System.out.println(this.minPrime+":"+lcI+"|");
 				break;
 			default:
 				System.out.println("Thread numero superieur à 12: " + this.minPrime + " / " + lcI);
 			}
-
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 	}
